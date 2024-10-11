@@ -25,7 +25,7 @@ See the [Video SDK Auth Endpoint Sample](https://github.com/zoom/videosdk-sample
 
 ## Installation, Build & Launch
 
-Currently, the sample app consists of 3 dynamic xcframeworks ZoomVideoSDK.xcframework,  ZoomVideoSDKUIKit.xcframework and zoomcml.xcframework which are added with "Embed & Sign" and can be located directly under the ZoomVideoSDKUIToolkitSample. In addition, the app also consist of screen sharing (broadcasting the device screen) feature under its own target ScreenShare using ReplayKit and ZoomVideoSDKScreenShare.xcframework with "Do Not Embed". For screen sharing to work, app group ID is required.
+Currently, the sample app consists of 4 dynamic xcframeworks ZoomVideoSDK.xcframework,  ZoomVideoSDKUIKit.xcframework, zoomcml.xcframework and CptShare.xcframework which are added with "Embed & Sign" and can be located directly under the ZoomVideoSDKUIToolkitSample. In addition, the app also consist of screen sharing (broadcasting the device screen) feature under its own target ScreenShare using ReplayKit and ZoomVideoSDKScreenShare.xcframework with "Do Not Embed". For screen sharing to work, app group ID is required.
 
 Build and run the sample app by navigating ViewController.swift and key in the following placeholders. If your session requires a password, you can make use of the password parameter.
 
@@ -94,7 +94,11 @@ As for Screen Sharing, you will need to include the CptShare.xcframework in your
 
 ### Swift Package Manager and Cocoapod
 
-You can also add the framework using the Swift Package Manager or Cocoapod using our GitHub link: https://github.com/zoom/videosdk-ui-toolkit-ios.
+You can also add the framework using the Swift Package Manager or Cocoapod using our GitHub link: https://github.com/zoom/videosdk-ui-toolkit-ios. Do take note that there are 4 branches available and the details are as followed:
+- main: SPM with all features
+- essential: SPM with all features except for Virtual Background and Screen Share
+- cocoapod: Cocoapod with all features
+- cocoapod-essential: Cocoapod with all features except for Virtual Background and Screen Share
 
 ## Need help?
 
