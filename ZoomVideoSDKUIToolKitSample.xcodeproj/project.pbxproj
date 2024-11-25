@@ -28,6 +28,7 @@
 		E5C9FF442CB5231E006A0B5B /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5C9FF432CB5231E006A0B5B /* CoreMedia.framework */; };
 		E5C9FF462CB52323006A0B5B /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5C9FF452CB52323006A0B5B /* VideoToolbox.framework */; };
 		E5C9FF472CB52326006A0B5B /* ZoomVideoSDKScreenShare.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5C9FF212CB5220F006A0B5B /* ZoomVideoSDKScreenShare.xcframework */; };
+		E5EB66862CF44A10008D9CCF /* CustomComponentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EB66852CF44A10008D9CCF /* CustomComponentVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +90,7 @@
 		E5C9FF412CB5231A006A0B5B /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		E5C9FF432CB5231E006A0B5B /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		E5C9FF452CB52323006A0B5B /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
+		E5EB66852CF44A10008D9CCF /* CustomComponentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomComponentVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -159,6 +161,7 @@
 				E565BA9B2A25ADD7002CD7AB /* AppDelegate.swift */,
 				E565BA9D2A25ADD7002CD7AB /* SceneDelegate.swift */,
 				E565BA9F2A25ADD7002CD7AB /* ViewController.swift */,
+				E5EB66852CF44A10008D9CCF /* CustomComponentVC.swift */,
 				E565BAA12A25ADD7002CD7AB /* Main.storyboard */,
 				E565BAA42A25ADD8002CD7AB /* Assets.xcassets */,
 				E565BAA62A25ADD8002CD7AB /* LaunchScreen.storyboard */,
@@ -293,6 +296,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E565BAA02A25ADD7002CD7AB /* ViewController.swift in Sources */,
+				E5EB66862CF44A10008D9CCF /* CustomComponentVC.swift in Sources */,
 				E565BA9C2A25ADD7002CD7AB /* AppDelegate.swift in Sources */,
 				E565BA9E2A25ADD7002CD7AB /* SceneDelegate.swift in Sources */,
 			);

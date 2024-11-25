@@ -7,6 +7,7 @@
 //  Copyright 2024 Zoom Video Communications, Inc. All rights reserved.
 
 import UIKit
+import ZoomVideoSDK
 import ZoomVideoSDKUIToolkit
 
 class ViewController: UIViewController {
@@ -14,10 +15,11 @@ class ViewController: UIViewController {
     let jwt = <#JWT#>
     let sessionName = <#Session Name#>
     let username = <#Username#>
-    let appGroupId = <#App Group ID#>
+    let isDefaultView = true
     
-    // If your session requires a password, you can use the password variable here as well.
-    // let password = "Password"
+//    let password = <#Password#> // For session that requires password in order to join.
+    let appGroupID = <#App Group ID#> // For screen sharing of device.
+//    let recordingConsentMessage = "You are currently being recorded and must either accept or deny to continue. If you choose to deny, you will be forced to leave the session." // For customized consent message that will be shown during the start of cloud recording.
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,16 +32,27 @@ class ViewController: UIViewController {
         // let vc = UIToolkitVC(sessionContext: SessionContext(jwt: jwt, sessionName: sessionName, sessionPassword: password, username: username))
         
         /*
-         Under the InitParams:
+         Under the InitParams, all parameters are optional:
          1. If your session allows screen sharing, you will need to add the App Group ID parameter,
          2. By default the UI Toolkits comes with all available features (with some features require additional license). If you will like to only use some of these features, you will need to add the features you want under the features parameter.
+         3. If your session allows and can perform cloud recording, you can add in a customized consent message.
          */
-        let vc = UIToolkitVC(sessionContext: SessionContext(jwt: jwt, sessionName: sessionName, username: username), initParams: InitParams(appGroupId: appGroupId, features: [.Audio, .Video, .Users]))
+        // let vc = UIToolkitVC(sessionContext: SessionContext(jwt: jwt, sessionName: sessionName, username: username), initParams: InitParams(appGroupId: appGroupID, features: [.Audio, .Video, .Users]))
 
-        //let vc = UIToolkitVC(sessionContext: SessionContext(jwt: jwt, sessionName: sessionName, username: username))
-        vc.delegate = self
-        vc.modalPresentationStyle = .fullScreen
-        present(vc, animated: true)
+        let vc = UIToolkitVC(sessionContext: SessionContext(jwt: jwt, sessionName: sessionName, username: username))
+        
+        /* Default UI */
+        if isDefaultView {
+            vc.delegate = self
+            vc.modalPresentationStyle = .fullScreen
+            present(vc, animated: true)
+        }
+        /* Component UI */
+        else {
+            UIToolkitComponentManager.shared().setup(with: SessionContext(jwt: jwt, sessionName: sessionName, username: username))
+            UIToolkitComponentManager.shared().setupDelegate(with: self)
+            UIToolkitComponentManager.shared().startJoinSession()
+        }
     }
 
 }
@@ -47,16 +60,30 @@ class ViewController: UIViewController {
 // MARK: Zoom Video UI Kit Delegate
 
 extension ViewController: UIToolkitDelegate {
-    
     func onError(_ errorType: UIToolkitError) {
         print("Sample VC onError Callback: \(errorType.rawValue) -> \(errorType.description)")
     }
     
+    /*
+     Default UI
+     */
     func onViewLoaded() {
         print("Sample VC onViewLoaded")
     }
     
     func onViewDismissed() {
         print("Sample VC onViewDismissed")
+    }
+    
+    /*
+     Component UI
+     */
+    func startJoinSessionSuccessed() {
+        print("Sample VC Start/Join Session Successfully")
+        performSegue(withIdentifier: "goCustomVC", sender: nil)
+    }
+    
+    func leaveSession(reason: ZoomVideoSDKSessionLeaveReason) {
+        print("Sample VC Left Session, reason: \(reason)")
     }
 }
