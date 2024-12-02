@@ -14,6 +14,10 @@ The UI toolkit enables you to instantly start using a core set of Video SDK feat
 - Virtual background
 - Portrait and landscape support
 - Screen share
+- Cloud Recording (Additional license required)
+- CRC Info and Invite (Additional license required)
+
+These features are available in both the default and components UI.
 
 The use of this UI Took Kit is subject to the [Video SDK terms of service](https://explore.zoom.us/en/video-sdk-terms/). Copyright 2024 Zoom Video Communications, Inc. All rights reserved.
 
@@ -25,7 +29,7 @@ See the [Video SDK Auth Endpoint Sample](https://github.com/zoom/videosdk-sample
 
 ## Installation, Build & Launch
 
-Currently, the sample app consists of 4 dynamic xcframeworks ZoomVideoSDK.xcframework,  ZoomVideoSDKUIKit.xcframework, zoomcml.xcframework and CptShare.xcframework which are added with "Embed & Sign" and can be located directly under the ZoomVideoSDKUIToolkitSample. In addition, the app also consist of screen sharing (broadcasting the device screen) feature under its own target ScreenShare using ReplayKit and ZoomVideoSDKScreenShare.xcframework with "Do Not Embed". For screen sharing to work, app group ID is required.
+Currently, the sample app consists of 4 dynamic xcframeworks ZoomVideoSDK.xcframework, ZoomVideoSDKUIKit.xcframework, zoomcml.xcframework and CptShare.xcframework which are added with "Embed & Sign" and can be located directly under the ZoomVideoSDKUIToolkitSample. In addition, the app also consist of screen sharing (broadcasting the device screen) feature under its own target ScreenShare using ReplayKit and ZoomVideoSDKScreenShare.xcframework with "Do Not Embed". For screen sharing to work, app group ID is required.
 
 Build and run the sample app by navigating ViewController.swift and key in the following placeholders. If your session requires a password, you can make use of the password parameter.
 
@@ -33,7 +37,9 @@ Build and run the sample app by navigating ViewController.swift and key in the f
 let jwt = <#JWT#>
 let sessionName = <#Session Name#>
 let username = <#Username#>
+let isDefaultView = true // true for Default UI and false for Component UI
 let appGroupId = <#App Group ID#>
+
 
 // If your session requires a password, you can use the password variable here as well.
 // let password = "<#Password#>
@@ -48,16 +54,27 @@ The variables above are used to set up a connection with the Video SDK. If your 
 // let vc = UIToolkitVC(sessionContext: SessionContext(jwt: jwt, sessionName: sessionName, sessionPassword: password, username: username))
 
 /*
- Under the InitParams:
+ Under the InitParams, all parameters are optional:
  1. If your session allows screen sharing, you will need to add the App Group ID parameter,
  2. By default the UI Toolkits comes with all available features (with some features require additional license). If you will like to only use some of these features, you will need to add the features you want under the features parameter.
+ 3. If your session allows and can perform cloud recording, you can add in a customized consent message.
  */
-// let vc = UIToolkitVC(sessionContext: SessionContext(jwt: jwt, sessionName: sessionName, username: username), initParams: InitParams(appGroupId: appGroupId, features: [.Audio, .Video, .Users]))
+// let vc = UIToolkitVC(sessionContext: SessionContext(jwt: jwt, sessionName: sessionName, username: username), initParams: InitParams(appGroupId: appGroupID, features: [.Audio, .Video, .Users]))
 
 let vc = UIToolkitVC(sessionContext: SessionContext(jwt: jwt, sessionName: sessionName, username: username))
-vc.delegate = self
-vc.modalPresentationStyle = .fullScreen
-present(vc, animated: true)
+
+/* Default UI */
+if isDefaultView {
+    vc.delegate = self
+    vc.modalPresentationStyle = .fullScreen
+    present(vc, animated: true)
+}
+/* Component UI */
+else {
+    UIToolkitComponentManager.shared().setup(with: SessionContext(jwt: jwt, sessionName: sessionName, username: username))
+    UIToolkitComponentManager.shared().setupDelegate(with: self)
+    UIToolkitComponentManager.shared().startJoinSession()
+}
 ```
 
 <br>
@@ -70,12 +87,27 @@ extension ViewController: UIToolkitDelegate {
         print("Sample VC onError Callback: \(errorType.rawValue) -> \(errorType.description)")
     }
     
+    /*
+     Default UI
+     */
     func onViewLoaded() {
         print("Sample VC onViewLoaded")
     }
     
     func onViewDismissed() {
         print("Sample VC onViewDismissed")
+    }
+    
+    /*
+     Component UI
+     */
+    func startJoinSessionSuccessed() {
+        print("Sample VC Start/Join Session Successfully")
+        performSegue(withIdentifier: "goCustomVC", sender: nil)
+    }
+    
+    func leaveSession(reason: ZoomVideoSDKSessionLeaveReason) {
+        print("Sample VC Left Session, reason: \(reason)")
     }
 }
 ```
