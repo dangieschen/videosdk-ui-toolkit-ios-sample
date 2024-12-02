@@ -1,6 +1,6 @@
 # Zoom Video SDK UI toolkit Sample Project 
 
-The [Zoom Video SDK UI toolkit](https://developers.zoom.us/docs/video-sdk/ios/ui-kit/) is a prebuilt video chat user interface powered by the Zoom Video SDK.
+The [Zoom Video SDK UI toolkit](https://developers.zoom.us/docs/video-sdk/ios/ui-toolkit/) is a prebuilt video chat user interface powered by the Zoom Video SDK.
 
 The UI toolkit enables you to instantly start using a core set of Video SDK features in your app, including:
 - Feature configuration
@@ -13,13 +13,13 @@ The UI toolkit enables you to instantly start using a core set of Video SDK feat
 - Participant management (with host and manager role)
 - Virtual background
 - Portrait and landscape support
-- Screen share
+- Screen share (full-screen)
 - Cloud Recording (Additional license required)
 - CRC Info and Invite (Additional license required)
 
 These features are available in both the default and components UI.
 
-The use of this UI Took Kit is subject to the [Video SDK terms of service](https://explore.zoom.us/en/video-sdk-terms/). Copyright 2024 Zoom Video Communications, Inc. All rights reserved.
+The use of this UI Took Kit is subject to the [Video SDK terms of service](https://www.zoom.com/en/trust/video-sdk-terms/). Copyright 2024 Zoom Video Communications, Inc. All rights reserved.
 
 ## Authorize
 
@@ -38,11 +38,10 @@ let jwt = <#JWT#>
 let sessionName = <#Session Name#>
 let username = <#Username#>
 let isDefaultView = true // true for Default UI and false for Component UI
-let appGroupId = <#App Group ID#>
 
-
-// If your session requires a password, you can use the password variable here as well.
-// let password = "<#Password#>
+// let password = <#Password#> // For session that requires password to join.
+// let appGroupID = <#App Group ID#> // For screen sharing of device.
+// let recordingConsentMessage = "You are currently being recorded and must either accept or deny to continue. If you choose to deny, you will be forced to leave the session." // For customized consent message that will be shown during the start of cloud recording.
 ```
 
 <br>
@@ -59,7 +58,7 @@ The variables above are used to set up a connection with the Video SDK. If your 
  2. By default the UI Toolkits comes with all available features (with some features require additional license). If you will like to only use some of these features, you will need to add the features you want under the features parameter.
  3. If your session allows and can perform cloud recording, you can add in a customized consent message.
  */
-// let vc = UIToolkitVC(sessionContext: SessionContext(jwt: jwt, sessionName: sessionName, username: username), initParams: InitParams(appGroupId: appGroupID, features: [.Audio, .Video, .Users]))
+// let vc = UIToolkitVC(sessionContext: SessionContext(jwt: jwt, sessionName: sessionName, username: username), initParams: InitParams(appGroupId: appGroupID, features: [.Audio, .Video, .Users], recordingConsentMessage: recordingConsentMessage)))
 
 let vc = UIToolkitVC(sessionContext: SessionContext(jwt: jwt, sessionName: sessionName, username: username))
 
