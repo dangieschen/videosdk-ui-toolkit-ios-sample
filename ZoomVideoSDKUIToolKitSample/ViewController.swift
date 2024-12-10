@@ -11,9 +11,9 @@ import ZoomVideoSDKUIToolkit
 
 class ViewController: UIViewController {
     
-    let jwt = <#JWT#>
-    let sessionName = <#Session Name#>
-    let username = <#Username / Display name#>
+    let jwt = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOm51bGwsImlzcyI6IkdmdTRERVRXU2tPVHJHOVhWUFc3LXciLCJleHAiOjE3MzQ0MDM0NzYsImlhdCI6MTczMzc5ODY3N30.eC1CYP93M4Nebys--QVg2luY9aXqd5bai8HTObh3_gk"
+    let sessionName = "zoom mic test"
+    let username = "Dan G"
     
     // If your session requires a password, you can use the password variable here as well.
     // let password = "Password"
